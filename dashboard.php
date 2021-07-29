@@ -27,24 +27,6 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
             <a class="navbar-brand ps-3" href="index.html">Klinik ABC</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <!-- <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form> -->
-            <!-- Navbar-->
-            <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><p class="dropdown-item"><?php echo $_SESSION['nama']; ?>&nbsp;</p></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logout.php" onClick="return confirm('Apakah anda yakin untuk logout, <?php echo $_SESSION['nama']; ?>?')">Logout</a></li>
-                    </ul>
-                </li>
-            </ul> -->
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -105,6 +87,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
             <?php
 
 			$aksi_detail = "code/proses/update-delete/aksi_detail.php";
+            $aksi_pendaftaran = "code/proses/update-delete/aksi_pendaftaran.php";
 			$aksi_user = "code/proses/update-delete/aksi_user.php";
 			$aksi_obat = "code/proses/update-delete/aksi_obat.php";
 			$aksi_pasien = "code/proses/update-delete/aksi_pasien.php";
@@ -132,6 +115,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 					require_once $home;
 				} else if (isset($_GET['aksi_detail'])) {
 					require_once $aksi_detail;
+                } else if (isset($_GET['aksi_pendaftaran'])) {
+                    require_once $aksi_pendaftaran;
 				} else if (isset($_GET['aksi_user'])) {
 					require_once $aksi_user;
 				} else if (isset($_GET['aksi_obat'])) {

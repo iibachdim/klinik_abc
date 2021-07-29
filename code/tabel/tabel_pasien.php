@@ -47,7 +47,7 @@
                     <td><?php echo $telepon_pasien ?></td>
                     <td>
                         <form action="dashboard.php?aksi_pasien=$aksi_pasien" method="post">
-                            <input type="hidden" name="KodePasien" value="<?php echo $id_pasien; ?>">
+                            <input type="hidden" name="id_pasien" value="<?php echo $id_pasien; ?>">
                             <input class="btn btn-info" name="proses" type="submit" value="Update">
                             <input class="btn btn-danger" name="proses" type="submit" value="Delete" onClick="return confirm('Apakah Anda ingin menghapus data pasien bernama <?php echo $nama_pasien; ?> ?')">
                         </form>

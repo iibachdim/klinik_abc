@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `detail` (
   `no_pendaftaran` int(5) NOT NULL,
-  `kode_obat` varchar(5) NOT NULL,
+  `id_obat` varchar(5) NOT NULL,
   `dosis` varchar(20) NOT NULL,
-  `jumlah` smallint(6) NOT NULL,
+  `jumlah` int(6) NOT NULL,
   `subTotal` decimal(15,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -41,22 +41,22 @@ CREATE TABLE `detail` (
 --
 DELIMITER $$
 CREATE TRIGGER `kembalikan_obat` AFTER DELETE ON `detail` FOR EACH ROW BEGIN
-	UPDATE obat SET stok_obat=stok_obat+OLD.jumlah WHERE kode_obat=OLD.kode_obat;
+	UPDATE obat SET stok_obat=stok_obat+OLD.jumlah WHERE id_obat=OLD.id_obat;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `kurangi_obat` AFTER INSERT ON `detail` FOR EACH ROW BEGIN
-	UPDATE obat SET stok_obat=stok_obat-NEW.jumlah WHERE kode_obat=NEW.kode_obat;
+	UPDATE obat SET stok_obat=stok_obat-NEW.jumlah WHERE id_obat=NEW.id_obat;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_obat` AFTER UPDATE ON `detail` FOR EACH ROW BEGIN
 	IF(NEW.jumlah < OLD.jumlah) THEN
-	UPDATE obat SET stok_obat = stok_obat+(OLD.jumlah-NEW.jumlah) WHERE kode_obat=OLD.kode_obat;
+	UPDATE obat SET stok_obat = stok_obat+(OLD.jumlah-NEW.jumlah) WHERE id_obat=OLD.id_obat;
 	ELSE
-	UPDATE obat SET stok_obat = stok_obat-(NEW.jumlah-OLD.jumlah) WHERE kode_obat=OLD.kode_obat;
+	UPDATE obat SET stok_obat = stok_obat-(NEW.jumlah-OLD.jumlah) WHERE id_obat=OLD.id_obat;
 	END IF;
 END
 $$
@@ -86,7 +86,7 @@ INSERT INTO `tindakan` (`id_tindakan`, `nama_tindakan`, `harga_tindakan`) VALUES
 -- Triggers `tindakan`
 --
 DELIMITER $$
-CREATE TRIGGER `update_subtotal2` AFTER UPDATE ON `tindakan` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_subtotal_tindakan` AFTER UPDATE ON `tindakan` FOR EACH ROW BEGIN
 	IF(OLD.harga_tindakan<NEW.harga_tindakan) THEN
 	UPDATE detail SET subTotal = subTotal+((NEW.harga_tindakan-OLD.harga_tindakan));
 	END IF;
@@ -154,11 +154,11 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat_pasien`, `gender_pasien`, `umur_pasien`, `telepon_pasien`) VALUES
-(1, 'Pasien 1', 'Malang', 'P', 17, '0000'),
-(2, 'Pasien 2', 'Malang', 'L', 17, '0000'),
-(3, 'Pasien 3', 'Malang', 'L', 20, '0000'),
-(4, 'Pasien 4', 'Malang', 'L', 15, '0000'),
-(5, 'Pasien 5', 'Malang', 'L', 30, '0000');
+(1, 'Pasien 1', 'Bandung', 'P', 17, '0000'),
+(2, 'Pasien 2', 'Bandung', 'L', 17, '0000'),
+(3, 'Pasien 3', 'Bandung', 'L', 20, '0000'),
+(4, 'Pasien 4', 'Bandung', 'L', 15, '0000'),
+(5, 'Pasien 5', 'Bandung', 'L', 30, '0000');
 
 -- --------------------------------------------------------
 
@@ -207,7 +207,7 @@ CREATE TABLE `useradmin` (
 --
 
 INSERT INTO `useradmin` (`id_user`, `nama`, `jenis_kelamin`, `alamat`, `no_telp`, `username`, `password`, `level`) VALUES
-('ID-1', 'Greggy Gianini Firmansyah', 'L', 'Malang', '0000', 'admin', 'admin', 'Admin');
+('1', 'Admin', 'L', 'Bandung', '0000', 'admin', 'admin', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -218,7 +218,7 @@ INSERT INTO `useradmin` (`id_user`, `nama`, `jenis_kelamin`, `alamat`, `no_telp`
 --
 ALTER TABLE `detail`
   ADD KEY `no_pendaftaran`(`no_pendaftaran`),
-  ADD KEY `kode_obat` (`kode_obat`);
+  ADD KEY `id_obat` (`id_obat`);
 
 --
 -- Indexes for table `obat`

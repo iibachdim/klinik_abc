@@ -38,7 +38,7 @@
                     <td><?php echo $nama_pasien ?></td>
                     <td>
                         <form action="dashboard.php?aksi_pendaftaran=$aksi_pendaftaran" method="post">
-                            <input type="hidden" name="KodePasien" value="<?php echo $no_pendaftaran; ?>">
+                            <input type="hidden" name="no_pendaftaran" value="<?php echo $no_pendaftaran; ?>">
                             <input class="btn btn-success" name="proses" type="submit" value="Proses">
                         </form>
                     </td>
